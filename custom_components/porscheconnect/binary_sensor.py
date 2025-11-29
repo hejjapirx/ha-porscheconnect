@@ -86,6 +86,30 @@ SENSOR_TYPES: list[PorscheBinarySensorEntityDescription] = [
         is_available=lambda v: v.has_tire_pressure_monitoring,
         device_class=BinarySensorDeviceClass.PROBLEM,
     ),
+    PorscheBinarySensorEntityDescription(
+        name="Alarm state",
+        key="alarm_state",
+        translation_key="alarm_state",
+        measurement_node="ALARM_STATE",
+        measurement_leaf="isEnabled",
+        device_class=BinarySensorDeviceClass.TAMPER,
+    ),
+    PorscheBinarySensorEntityDescription(
+        name="Theft state",
+        key="theft_state",
+        translation_key="theft_state",
+        measurement_node="THEFT_STATE",
+        measurement_leaf="isEnabled",
+        device_class=BinarySensorDeviceClass.SAFETY,
+    ),
+    PorscheBinarySensorEntityDescription(
+        name="VTS mode",
+        key="vts_mode",
+        translation_key="vts_mode",
+        value_fn=lambda v: any(item.get("isEnabled") for item in v.data.get("VTS_MODES", {}).get("list", [])),
+        attr_fn=lambda v: v.data.get("VTS_MODES", {}),
+        device_class=None
+    ),
 ]
 
 

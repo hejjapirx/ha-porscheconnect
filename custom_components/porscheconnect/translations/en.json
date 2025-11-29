@@ -43,7 +43,10 @@
                     "off": "Ok"
                 }
 			},
-            "remote_access": {"name": "Remote access"}
+            "remote_access": {"name": "Remote access"},
+	    "alarm_state": {"name": "Alarm state"},
+	    "theft_state": {"name": "Theft state"},
+	    "vts_mode": {"name": "VTS mode"}
         },
         "image": {
             "front_view": {"name": "View from the front"},
@@ -80,6 +83,24 @@
             "fuel_level": {
                 "name": "Fuel level"
             },
+	    "charging_remaining_time": {
+	    	"name": "Charging remaining time"
+	    },
+	    "oil_level_current": {
+	      	"name": "Oil level"
+	    },
+	    "main_service_time": {
+	      	"name": "Main service time"
+	    },
+	    "main_service_range": {
+	    	"name": "Main service range"
+	    },
+	    "oil_service_time": {
+	    	"name": "Oil service time"
+	    },
+	    "oil_service_range": {
+	    	"name": "Oil service range"
+	    },
             "charging_status": {
                 "name": "Charging status",
                 "state": {

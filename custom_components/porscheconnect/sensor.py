@@ -18,6 +18,7 @@ from homeassistant.const import (
     UnitOfLength,
     UnitOfPower,
     UnitOfSpeed,
+    UnitOfTime,
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -80,6 +81,16 @@ SENSOR_TYPES: list[PorscheSensorEntityDescription] = [
         measurement_leaf="targetDateTime",
         icon="mdi:clock-end",
         device_class=SensorDeviceClass.TIMESTAMP,
+        is_available=lambda v: v.has_electric_drivetrain,
+    ),
+    PorscheSensorEntityDescription(
+        key="charging_remaining_time",
+        translation_key="charging_remaining_time",
+        measurement_node="CHARGING_SUMMARY",
+        measurement_leaf="remainingTime",
+        icon="mdi:clock-end",
+        device_class=SensorDeviceClass.DURATION,
+        native_unit_of_measurement=UnitOfTime.MINUTES,
         is_available=lambda v: v.has_electric_drivetrain,
     ),
     PorscheSensorEntityDescription(
@@ -150,6 +161,61 @@ SENSOR_TYPES: list[PorscheSensorEntityDescription] = [
         suggested_display_precision=0,
         is_available=lambda v: v.has_ice_drivetrain,
     ),
+    PorscheSensorEntityDescription(
+        key="oil_level_current",
+        translation_key="oil_level_current",
+        measurement_node="OIL_LEVEL_CURRENT",
+        measurement_leaf="percent",
+        icon="mdi:oil-level",
+        native_unit_of_measurement=PERCENTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=0,
+        is_available=lambda v: v.has_ice_drivetrain,
+    ),
+    PorscheSensorEntityDescription(
+        key="main_service_time",
+        translation_key="main_service_time",
+        measurement_node="MAIN_SERVICE_TIME",
+        measurement_leaf="days",
+        icon="mdi:car-wrench",
+        native_unit_of_measurement=UnitOfTime.DAYS,
+        device_class=SensorDeviceClass.DURATION,
+        is_available=lambda v: True,
+    ),
+    PorscheSensorEntityDescription(
+        key="main_service_range",
+        translation_key="main_service_range",
+        measurement_node="MAIN_SERVICE_RANGE",
+        measurement_leaf="kilometers",
+        icon="mdi:car-wrench",
+        native_unit_of_measurement=UnitOfLength.KILOMETERS,
+        device_class=SensorDeviceClass.DISTANCE,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=0,
+        is_available=lambda v: True,
+    ),
+    PorscheSensorEntityDescription(
+        key="oil_service_time",
+        translation_key="oil_service_time",
+        measurement_node="OIL_SERVICE_TIME",
+        measurement_leaf="days",
+        icon="mdi:car-wrench",
+        native_unit_of_measurement=UnitOfTime.DAYS,
+        device_class=SensorDeviceClass.DURATION,
+        is_available=lambda v: v.has_ice_drivetrain,
+    ),
+    PorscheSensorEntityDescription(
+        key="oil_service_range",
+        translation_key="oil_service_range",
+        measurement_node="OIL_SERVICE_RANGE",
+        measurement_leaf="kilometers",
+        icon="mdi:car-wrench",
+        native_unit_of_measurement=UnitOfLength.KILOMETERS,
+        device_class=SensorDeviceClass.DISTANCE,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=0,
+        is_available=lambda v: v.has_ice_drivetrain,
+    )
 ]
 
 
